@@ -9,4 +9,5 @@ else
 fi
 
 echo "Starting server..."
-python server.py
+
+python piggybank/manage.py runserver
