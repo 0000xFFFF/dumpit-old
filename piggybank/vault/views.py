@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# Create your views here.
 def vault(request):
-    return HttpResponse("Vault")
+    return render(request, "vault.html")
