@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .form import ContactForm
 
-def index(request):
+def index_view(request):
     return render(request, 'index.html')
 
-def login(request):
+def login_view(request):
     return render(request, "login.html")
