@@ -10,4 +10,4 @@ fi
 
 echo "Starting server..."
 
-python piggybank/manage.py runserver
+sudo python app.py

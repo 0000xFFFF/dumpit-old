@@ -1,2 +1,4 @@
 flask
+pyopenssl
+flask_sslify
 ipython

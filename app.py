@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify, send_from_directory
+from flask_sslify import SSLify
 import os
 
 app = Flask(__name__)
+sslify = SSLify(app)
+
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -33,5 +36,5 @@ def upload_files():
     return jsonify({'filenames': filenames}), 200
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=80, ssl_context='adhoc')
 
