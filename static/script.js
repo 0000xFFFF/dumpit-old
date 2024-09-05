@@ -73,11 +73,12 @@ function updateFileTable(files) {
         const tbody = document.createElement('tbody')
 
         const row = document.createElement('tr');
-        row.appendChild(tr_create("NAME: ", file.name))
-        row.appendChild(tr_create("PATH: ", file.webkitRelativePath || '/'))
-        row.appendChild(tr_create("SIZE: ", (humanFileSize(file.size) + " (" + file.size + ")") || '/'))
-        row.appendChild(tr_create("DATE: ", date2str(file.lastModifiedDate)))
-        console.log(file.lastModifiedDate)
+        row.appendChild(tr_create("INDEX:", (index+1) + "/" + files.length));
+        row.appendChild(tr_create("FILE NAME:", file.name));
+        row.appendChild(tr_create("FULL PATH:", file.webkitRelativePath || '/'));
+        row.appendChild(tr_create("SIZE IN BYTES:", (humanFileSize(file.size) + " (" + file.size + ")") || '/'));
+        row.appendChild(tr_create("LAST MODIFIED:", date2str(file.lastModifiedDate)));
+        console.log(file.lastModifiedDate);
 
         const progressCell = document.createElement('td');
         const progressBar = document.createElement('div');
@@ -87,7 +88,7 @@ function updateFileTable(files) {
         progressBar.textContent = '0%';
         progressCell.appendChild(progressBar);
 
-        row.appendChild(tr_create2("SENT: ", progressCell))
+        row.appendChild(tr_create2("UPLOADED:", progressCell));
         
         tbody.appendChild(row);
         table.appendChild(tbody);
@@ -125,10 +126,10 @@ async function uploadFiles() {
 
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    info(`✅ ${file.name}`);
+                    info(`✅ [${index+1}/${files.length}] ${file.name}`);
                     resolve();
                 } else {
-                    info(`❌ ${file.name}`);
+                    info(`❌ [${index+1}/${files.length}] ${file.name}`);
                     reject();
                 }
             };
