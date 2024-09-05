@@ -1,5 +1,5 @@
 const infoElement = document.getElementById('info');
-const fileTableBody = document.querySelector('#fileTable tbody');
+const filesDisplay = document.getElementById('filesdisplay');
 
 function humanFileSize(bytes, si=false, dp=1) {
     const thresh = si ? 1000 : 1024;
@@ -23,31 +23,16 @@ function humanFileSize(bytes, si=false, dp=1) {
     return bytes.toFixed(dp) + ' ' + units[u];
 }
 
+
+function human_readable_bytes(bytes) {
+    return (humanFileSize(bytes) + " (" + bytes + " bytes)");
+}
+
 function info(message) {
     console.log(message);
     if (infoElement) {
         infoElement.innerHTML += message + "<br>";
     }
-}
-
-function tr_create(th_text, td_text) {
-    const tr = document.createElement("tr");
-    const th = document.createElement("th");
-    th.textContent = th_text;
-    const td = document.createElement("td");
-    td.textContent = td_text;
-    tr.appendChild(th);
-    tr.appendChild(td);
-    return tr;
-}
-
-function tr_create2(th_text, elem) {
-    const tr = document.createElement("tr");
-    const th = document.createElement("th");
-    th.textContent = th_text;
-    tr.appendChild(th);
-    tr.appendChild(elem);
-    return tr;
 }
 
 function date2str(input_date) {
@@ -63,37 +48,48 @@ function date2str(input_date) {
 }
 
 function updateFileTable(files) {
-    fileTableBody.innerHTML = ''; // Clear existing rows
+    filesDisplay.innerHTML = ''; // Clear existing rows
 
     Array.from(files).forEach((file, index) => {
-        const tr = document.createElement('tr');
+        
+        const div_file = document.createElement('div');
+        div_file.className = "div_file";
+        
+        const div1 = document.createElement('div');
+        div1.className = "div_file_div1";
+        const p1 = document.createElement('p');
+        p1.className = "p_index";
+        p1.innerHTML = (index+1) + "/" + files.length;
+        const p2 = document.createElement('p');
+        p2.className = "p_name";
+        p2.innerHTML = file.name;
+        div1.appendChild(p2);
+        div1.appendChild(p1);
+        div_file.appendChild(div1);
 
-        const table = document.createElement('table');
-        table.className = "filetable";
-        const tbody = document.createElement('tbody')
+        const div2 = document.createElement('div');
+        div2.className = "div_file_div2";
+        const p3 = document.createElement('p');
+        p3.className = "p_size";
+        p3.innerHTML = human_readable_bytes(file.size);
+        const p4 = document.createElement('p');
+        p4.className = "p_date";
+        p4.innerHTML = date2str(file.lastModifiedDate);
+        div2.appendChild(p3);
+        div2.appendChild(p4);
+        div_file.appendChild(div2);
 
-        const row = document.createElement('tr');
-        row.appendChild(tr_create("INDEX:", (index+1) + "/" + files.length));
-        row.appendChild(tr_create("FILE NAME:", file.name));
-        row.appendChild(tr_create("FULL PATH:", file.webkitRelativePath || '/'));
-        row.appendChild(tr_create("SIZE IN BYTES:", (humanFileSize(file.size) + " (" + file.size + ")") || '/'));
-        row.appendChild(tr_create("LAST MODIFIED:", date2str(file.lastModifiedDate)));
-        console.log(file.lastModifiedDate);
-
-        const progressCell = document.createElement('td');
+        const progressDiv = document.createElement('div');
+        progressDiv.className = "progress";
         const progressBar = document.createElement('div');
         progressBar.className = 'progress-bar';
         progressBar.id = `progressBar${index}`;
         progressBar.style.width = '0%';
         progressBar.textContent = '0%';
-        progressCell.appendChild(progressBar);
+        progressDiv.appendChild(progressBar);
+        div_file.appendChild(progressDiv);
 
-        row.appendChild(tr_create2("UPLOADED:", progressCell));
-        
-        tbody.appendChild(row);
-        table.appendChild(tbody);
-        tr.appendChild(table);
-        fileTableBody.appendChild(tr);
+        filesDisplay.appendChild(div_file);
     });
 }
 
