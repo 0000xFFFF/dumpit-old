@@ -2,7 +2,7 @@ body {
     font-family: monospace;
     font-size: x-small;
     color: white;
-    background-color: #202020;
+    background-color: #101010;
 }
 h1 {
     text-align: center;
@@ -78,9 +78,11 @@ p {
 
 #filesdisplay {
     width: 300px;
+    background: #202020;
 }
 
 .div_file {
+    background-color: #151515;
     padding: 5px;
     border: 1px solid #303030;
     margin-bottom: 2px;
