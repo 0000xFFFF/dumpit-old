@@ -1,13 +1,46 @@
 body {
+    font-family: monospace;
+    font-size: x-large;
     color: white;
-    background-color: #303030;
+    background-color: #202020;
+}
+
+h1 {
+    text-align: center;
+    color: orange;
+}
+
+th {
+    color: salmon;
+}
+
+td {
+    color: gold;
+}
+
+p {
+    color: khaki;
+}
+
+input {
+    color: orange;
 }
 
 .container {
     display: block;
     margin: 0 auto;
-    width: 500px;
+    width: 90vw;
 }
+
+.centercont {
+    border-radius: 10px;
+    margin: 20px auto;
+    width: fit-content;
+    box-shadow: 2px 2px 20px 0px rgba(23,66,38,1);
+    border: 1px solid #505050;
+    padding: 10px;
+}
+
 
 .flat-button {
     border-radius: 0;
@@ -17,7 +50,6 @@ body {
     cursor: pointer;
 }
 
-/* Optional: Add hover and active states */
 .flat-button:hover {
     background-image: linear-gradient(#aaa, #ccc);
 }
@@ -35,8 +67,23 @@ body {
 }
 .progress-bar {
     width: 0;
-    height: 20px;
-    background-color: lime;
+    height: 25px;
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(63,255,0,1) 100%);;
     text-align: center;
     color: white;
+}
+.progress-head {
+    width: fit-content;
+}
+
+table {
+    margin: 10px;
+    border: 1px solid #505050;
+}
+th, td {
+    border: 1px solid #404040;
+    padding: 5px;
+}
+table td:last-child {
+    width: 200px;
 }

@@ -5,16 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
     <div class="container" id="container">
-        <h1>Upload Files</h1>
-        <input type="file" id="fileInput" multiple>
-        <button class="flat-button" onclick="uploadFiles()">Upload</button>
-        <div class="progress">
-            <div class="progress-bar" id="progressBar">0%</div>
+        <div class="centercont">
+            <h1>Upload Files</h1>
+            <input type="file" id="fileInput" class="flat-file-upload" multiple>
+            <button class="flat-button" onclick="uploadFiles()">Upload</button>
         </div>
-        <p id="info">...</p>
+        <div class="centercont">
+            <table id="fileTable">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>File Path</th>
+                        <th>Size</th>
+                        <th>Modified</th>
+                        <th class="progress-head">Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="centercont">
+            <p id="info">...</p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
