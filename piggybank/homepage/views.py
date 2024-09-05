@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views import View
 from django.contrib.auth.models import User
-from .form import RegisterForm
+from .forms import RegisterForm
 
 def index_view(request):
     return render(request, 'index.html')
