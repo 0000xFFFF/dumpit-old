@@ -63,8 +63,8 @@ function updateFileTable(files) {
         const p2 = document.createElement('p');
         p2.className = "p_name";
         p2.innerHTML = file.name;
-        div1.appendChild(p2);
         div1.appendChild(p1);
+        div1.appendChild(p2);
         div_file.appendChild(div1);
 
         const div2 = document.createElement('div');

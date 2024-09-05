@@ -27,6 +27,7 @@ input { color: orange; }
     padding: 10px;
 }
 
+.centercont:empty { display: none; }
 
 .flat-button {
     border-radius: 0;
@@ -52,51 +53,64 @@ input { color: orange; }
 .progress {
     display: inline-block;
     width: 100%;
-    background-color: black;
+    background-color: transparent;
+    border: 1px yellow solid;
     border-radius: 10px;
-    padding: 2px;
 }
 .progress-bar {
     width: 0;
     height: 15px;
-    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(63,255,0,1) 100%);;
+    background: linear-gradient(90deg, green 0%, lime 100%);;
     text-align: right;
     color: white;
     transition: 1s;
     border-radius: 10px;
 }
+
 .progress-label {
     display: inline-block;
     margin: 3px;
 }
 
 p {
-    margin: 2px 0 3px 0;
+    margin: 5px 0 5px 0;
 }
+
+#filesdisplay {
+    width: 300px;
+}
+
 .div_file {
+    padding: 5px;
     border: 1px solid #303030;
-    margin: 2px;
-    padding: 2px;
+    margin-bottom: 2px;
 }
 .div_file_div1, .div_file_div2 {
-   margin: 3px 0 3px 0;
-   height: 20px;
+    display: block;
 }
+
+.div_file_div2 {
+    display: block;
+}
+
 .p_index {
-    float: right;
-    color: red;
     display: inline;
-    margin-right: 3px;
+    color: orangered;
+    text-align: center;
+    font-size: medium;
+    margin-right: 10px;
 }
 .p_name {
     display: inline;
+    overflow: hidden;
+    overflow-wrap: break-word;
     color: white;
     font-size: medium;
 }
 .p_size {
-    display: inline;
+    display: block;
     color: gold;
 }
 .p_date {
-    float: right;
+    display: block;
 }
