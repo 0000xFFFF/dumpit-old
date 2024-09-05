@@ -4,61 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload</title>
-    <style>
-        .progress {
-            width: 100%;
-            background-color: #f3f3f3;
-            border: 1px solid #ddd;
-        }
-        .progress-bar {
-            width: 0;
-            height: 20px;
-            background-color: #4caf50;
-            text-align: center;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Upload Files</h1>
-    <input type="file" id="fileInput" multiple>
-    <button onclick="uploadFiles()">Upload</button>
-    <br>
-    <div class="progress">
-        <div class="progress-bar" id="progressBar">0%</div>
+    <div class="container" id="container">
+        <h1>Upload Files</h1>
+        <input type="file" id="fileInput" multiple>
+        <button class="flat-button" onclick="uploadFiles()">Upload</button>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+        <p id="info">...</p>
     </div>
-    
-    <script>
-        function uploadFiles() {
-            const files = document.getElementById('fileInput').files;
-            if (files.length === 0) return;
-
-            const formData = new FormData();
-            for (let i = 0; i < files.length; i++) {
-                formData.append('files', files[i]);
-            }
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/upload', true);
-            
-            xhr.upload.onprogress = function(event) {
-                if (event.lengthComputable) {
-                    const percentComplete = Math.round((event.loaded / event.total) * 100);
-                    document.getElementById('progressBar').style.width = percentComplete + '%';
-                    document.getElementById('progressBar').textContent = percentComplete + '%';
-                }
-            };
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    alert('Files uploaded successfully');
-                } else {
-                    alert('An error occurred!');
-                }
-            };
-
-            xhr.send(formData);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

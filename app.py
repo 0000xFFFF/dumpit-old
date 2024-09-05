@@ -2,7 +2,11 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_sslify import SSLify
 import os
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder="static/"
+)
 sslify = SSLify(app)
 
 UPLOAD_FOLDER = 'uploads'
@@ -25,13 +29,22 @@ def upload_files():
         return jsonify({'error': 'No selected files'}), 400
 
     filenames = []
+    failed_files = []
+
     for file in files:
         if file.filename == '':
-            return jsonify({'error': 'No selected file'}), 400
-        
-        filename = file.filename
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        filenames.append(filename)
+            failed_files.append('No selected file')
+            continue
+
+        try:
+            filename = file.filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filenames.append(filename)
+        except Exception as e:
+            failed_files.append(str(e))
+
+    if failed_files:
+        return jsonify({'filenames': filenames, 'errors': failed_files}), 500
 
     return jsonify({'filenames': filenames}), 200
 

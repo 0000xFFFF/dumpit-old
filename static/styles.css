@@ -1,0 +1,42 @@
+body {
+    color: white;
+    background-color: #303030;
+}
+
+.container {
+    display: block;
+    margin: 0 auto;
+    width: 500px;
+}
+
+.flat-button {
+    border-radius: 0;
+    box-shadow: none;
+    background-image: linear-gradient(#ccc, #aaa); /* adjust colors to your liking */
+    background-color: #ccc; /* fallback color */
+    cursor: pointer;
+}
+
+/* Optional: Add hover and active states */
+.flat-button:hover {
+    background-image: linear-gradient(#aaa, #ccc);
+}
+
+.flat-button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.progress {
+    width: 100%;
+    background-color: gray;
+    border: 1px solid #ddd;
+    margin: 5px;
+}
+.progress-bar {
+    width: 0;
+    height: 20px;
+    background-color: lime;
+    text-align: center;
+    color: white;
+}
