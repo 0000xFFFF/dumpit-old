@@ -44,52 +44,59 @@ input { color: orange; }
 }
 
 
-.progress {
-    display: block;
-    width: 100%;
-    background-color: black;
+.progressCont {
+    display: flex;
+    align-items: center;
 }
 
+.progress {
+    display: inline-block;
+    width: 100%;
+    background-color: black;
+    border-radius: 10px;
+    padding: 2px;
+}
 .progress-bar {
     width: 0;
+    height: 15px;
     background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(63,255,0,1) 100%);;
     text-align: right;
     color: white;
     transition: 1s;
+    border-radius: 10px;
+}
+.progress-label {
+    display: inline-block;
+    margin: 3px;
 }
 
 p {
     margin: 2px 0 3px 0;
 }
-
 .div_file {
     border: 1px solid #303030;
     margin: 2px;
     padding: 2px;
 }
-
 .div_file_div1, .div_file_div2 {
    margin: 3px 0 3px 0;
+   height: 20px;
 }
-
 .p_index {
     float: right;
     color: red;
     display: inline;
     margin-right: 3px;
 }
-
 .p_name {
     display: inline;
     color: white;
     font-size: medium;
 }
-
 .p_size {
     display: inline;
     color: gold;
 }
-
 .p_date {
     float: right;
 }

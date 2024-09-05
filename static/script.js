@@ -79,16 +79,23 @@ function updateFileTable(files) {
         div2.appendChild(p4);
         div_file.appendChild(div2);
 
+        const progressCont = document.createElement('div');
+        progressCont.className = "progressCont";
         const progressDiv = document.createElement('div');
         progressDiv.className = "progress";
         const progressBar = document.createElement('div');
         progressBar.className = 'progress-bar';
         progressBar.id = `progressBar${index}`;
         progressBar.style.width = '0%';
-        progressBar.textContent = '0%';
         progressDiv.appendChild(progressBar);
-        div_file.appendChild(progressDiv);
-
+        const progressLabel = document.createElement('p');
+        progressLabel.className = "progress-label";
+        progressLabel.id = `progressBar${index}_label`;
+        progressLabel.innerHTML = "....";
+        progressCont.appendChild(progressDiv);
+        progressCont.appendChild(progressLabel);
+        div_file.appendChild(progressCont);
+        
         filesDisplay.appendChild(div_file);
     });
 }
@@ -113,9 +120,10 @@ async function uploadFiles() {
                 if (event.lengthComputable) {
                     const percentComplete = Math.round((event.loaded / event.total) * 100);
                     const progressBar = document.getElementById(`progressBar${index}`);
+                    const progressLabel = document.getElementById(`progressBar${index}_label`);
                     if (progressBar) {
                         progressBar.style.width = percentComplete + '%';
-                        progressBar.textContent = percentComplete + '%';
+                        progressLabel.textContent = percentComplete + '%';
                     }
                 }
             };
