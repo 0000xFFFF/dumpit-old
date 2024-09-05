@@ -30,23 +30,54 @@ function info(message) {
     }
 }
 
+function tr_create(th_text, td_text) {
+    const tr = document.createElement("tr");
+    const th = document.createElement("th");
+    th.textContent = th_text;
+    const td = document.createElement("td");
+    td.textContent = td_text;
+    tr.appendChild(th);
+    tr.appendChild(td);
+    return tr;
+}
+
+function tr_create2(th_text, elem) {
+    const tr = document.createElement("tr");
+    const th = document.createElement("th");
+    th.textContent = th_text;
+    tr.appendChild(th);
+    tr.appendChild(elem);
+    return tr;
+}
+
+function date2str(input_date) {
+    const date = new Date(input_date);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDateTime;
+}
+
 function updateFileTable(files) {
     fileTableBody.innerHTML = ''; // Clear existing rows
 
     Array.from(files).forEach((file, index) => {
+        const tr = document.createElement('tr');
+
+        const table = document.createElement('table');
+        table.className = "filetable";
+        const tbody = document.createElement('tbody')
+
         const row = document.createElement('tr');
-
-        const nameCell = document.createElement('td');
-        nameCell.textContent = file.name;
-
-        const pathCell = document.createElement('td');
-        pathCell.textContent = file.webkitRelativePath || '/'; // Path might not be available
-
-        const sizeCell = document.createElement('td');
-        sizeCell.textContent = (humanFileSize(file.size) + " (" + file.size + ")") || '/';
-
-        const modifiedCell = document.createElement('td');
-        modifiedCell.textContent = file.lastModifiedDate;
+        row.appendChild(tr_create("NAME: ", file.name))
+        row.appendChild(tr_create("PATH: ", file.webkitRelativePath || '/'))
+        row.appendChild(tr_create("SIZE: ", (humanFileSize(file.size) + " (" + file.size + ")") || '/'))
+        row.appendChild(tr_create("DATE: ", date2str(file.lastModifiedDate)))
+        console.log(file.lastModifiedDate)
 
         const progressCell = document.createElement('td');
         const progressBar = document.createElement('div');
@@ -56,13 +87,12 @@ function updateFileTable(files) {
         progressBar.textContent = '0%';
         progressCell.appendChild(progressBar);
 
-        row.appendChild(nameCell);
-        row.appendChild(pathCell);
-        row.appendChild(sizeCell);
-        row.appendChild(modifiedCell);
-        row.appendChild(progressCell);
-
-        fileTableBody.appendChild(row);
+        row.appendChild(tr_create2("SENT: ", progressCell))
+        
+        tbody.appendChild(row);
+        table.appendChild(tbody);
+        tr.appendChild(table);
+        fileTableBody.appendChild(tr);
     });
 }
 
@@ -95,10 +125,10 @@ async function uploadFiles() {
 
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    info(`File ${file.name} uploaded successfully`);
+                    info(`✅ ${file.name}`);
                     resolve();
                 } else {
-                    info(`Error uploading file ${file.name}`);
+                    info(`❌ ${file.name}`);
                     reject();
                 }
             };
