@@ -20,3 +20,10 @@ Easily transfer files from a phone to a PC over wifi.
 ```
 ./run.sh
 ```
+
+# Usage
+Open the server's IP address in a web browser and begin uploading files.
+
+* https://127.0.0.1
+* https://192.168.1.2
+
