@@ -1,6 +1,6 @@
 # dumpit - simple HTTP(s) file server for uploading files
 
-[![Python 3.6](https://img.shields.io/badge/Python-3.6-yellow.svg)](http://www.python.org/download/)
+[![Python 3.12.5](https://img.shields.io/badge/Python-3.12.5-yellow.svg)](http://www.python.org/download/)
 
 Easily transfer files from a phone to a PC over wifi.
 
