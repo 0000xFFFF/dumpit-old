@@ -23,7 +23,9 @@ Easily transfer files from a phone to a PC over wifi.
 
 # Usage
 Open the server's IP address in a web browser and begin uploading files.
-
+<br>
+Example:
 * https://127.0.0.1
 * https://192.168.1.2
+
 
