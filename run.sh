@@ -10,4 +10,6 @@ fi
 
 echo "Starting server..."
 
+mkdir uploads
+
 sudo python app.py
