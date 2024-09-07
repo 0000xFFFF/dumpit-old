@@ -8,8 +8,9 @@ else
     echo "Inside a virtual environment. Proceeding..."
 fi
 
+
+mkdir -p uploads
+ORIGINAL_USER="$(whoami)"
+
 echo "Starting server..."
-
-mkdir uploads
-
-sudo python app.py
+sudo ./server.py -u "$ORIGINAL_USER"
