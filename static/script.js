@@ -72,15 +72,19 @@ function updateFileTable(files) {
         const p3 = document.createElement('p');
         p3.className = "p_size";
         p3.innerHTML = human_readable_bytes(file.size);
-        const p4 = document.createElement('p');
-        p4.className = "p_date";
-        p4.innerHTML = date2str(file.lastModifiedDate);
         div2.appendChild(p3);
-        div2.appendChild(p4);
+        if (file.lastModifiedDate !== undefined) {
+            const p4 = document.createElement('p');
+            p4.className = "p_date";
+            p4.innerHTML = date2str(file.lastModifiedDate);
+            p4.style.display = "block";
+            div2.appendChild(p4);
+        }
         div_file.appendChild(div2);
 
         const progressCont = document.createElement('div');
         progressCont.className = "progressCont";
+        progressCont.id = `progressBar${index}_cont`;
         const progressDiv = document.createElement('div');
         progressDiv.className = "progress";
         const progressBar = document.createElement('div');
@@ -115,6 +119,9 @@ async function uploadFiles() {
 
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '/upload', true);
+
+            const progressBarCont = document.getElementById(`progressBar${index}_cont`);
+            progressBarCont.style.display = "flex";
 
             xhr.upload.onprogress = function(event) {
                 if (event.lengthComputable) {

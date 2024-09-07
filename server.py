@@ -11,9 +11,12 @@ parser = argparse.ArgumentParser(description='HTTP(s) web file server for just u
 parser.add_argument('-u', '--user', metavar='user', type=str, help="user that should own the uploaded files")
 parser.add_argument('-i', '--ip', metavar='string', type=str, default="0.0.0.0", help="IP for the server (default: '0.0.0.0' - all ips)")
 parser.add_argument('-p', '--port', metavar='string', type=str, default="443", help="port for the server (default: '443' - https)")
+parser.add_argument('-v', '--verbose', action="store_true", help="verbose output")
 
 args = parser.parse_args()
 
+if args.verbose:
+    print(args)
 
 # Get the UID and GID of the specified user
 if args.user:
@@ -64,7 +67,11 @@ def upload_files():
 
         try:
             filename = file.filename
+            if args.verbose: print(f"saving: {filename}")
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            if args.verbose: print(f"saved: {filename}")
+
+            if args.verbose: print(f"chown[{args.user}] {filename}")
             os.chown(os.path.join(app.config['UPLOAD_FOLDER'], filename), user_uid, user_gid)
 
             filenames.append(filename)
