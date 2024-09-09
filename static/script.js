@@ -54,6 +54,7 @@ function updateFileTable(files) {
         
         const div_file = document.createElement('div');
         div_file.className = "div_file";
+        div_file.id = `fileItem${index}`;
         
         const div1 = document.createElement('div');
         div1.className = "div_file_div1";
@@ -122,6 +123,8 @@ async function uploadFiles() {
 
             const progressBarCont = document.getElementById(`progressBar${index}_cont`);
             progressBarCont.style.display = "flex";
+            
+            const fileItem = document.getElementById(`fileItem${index}`);
 
             xhr.upload.onprogress = function(event) {
                 if (event.lengthComputable) {
@@ -137,12 +140,13 @@ async function uploadFiles() {
 
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    info(`✅ [${index+1}/${files.length}] ${file.name}`);
+                    fileItem.style.backgroundColor = "rgba(0, 255, 0, 0.1)";
                     resolve();
                 } else {
-                    info(`❌ [${index+1}/${files.length}] ${file.name}`);
+                    fileItem.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
                     reject();
                 }
+                progressBarCont.style.display = "none";
             };
 
             xhr.onerror = function() {
@@ -158,7 +162,7 @@ async function uploadFiles() {
         await uploadFile(file, index);
     }
 
-    info('All files uploaded successfully');
+    info('Done!');
 }
 
 document.getElementById('fileInput').addEventListener('change', (event) => {
