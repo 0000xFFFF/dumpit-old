@@ -12,6 +12,7 @@ parser.add_argument('-u', '--user', metavar='user', type=str, help="user that sh
 parser.add_argument('-i', '--ip', metavar='string', type=str, default="0.0.0.0", help="IP for the server (default: '0.0.0.0' - all ips)")
 parser.add_argument('-p', '--port', metavar='string', type=str, default="443", help="port for the server (default: '443' - https)")
 parser.add_argument('-v', '--verbose', action="store_true", help="verbose output")
+parser.add_argument('-d', '--directory', type=str, help="directory to save files to")
 
 args = parser.parse_args()
 
@@ -38,8 +39,9 @@ app = Flask(
 )
 sslify = SSLify(app)
 
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = '.'
+if args.directory is not None:
+    UPLOAD_FOLDER = args.directory
 
 # Ensure upload directory exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -67,12 +69,14 @@ def upload_files():
 
         try:
             filename = file.filename
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
+
             if args.verbose: print(f"saving: {filename}")
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(filepath)
             if args.verbose: print(f"saved: {filename}")
 
-            if args.verbose: print(f"chown[{args.user}] {filename}")
-            os.chown(os.path.join(app.config['UPLOAD_FOLDER'], filename), user_uid, user_gid)
+            if args.verbose: print(f"chown[{args.user}] {filepath}")
+            os.chown(filepath, user_uid, user_gid)
 
             filenames.append(filename)
         except Exception as e:

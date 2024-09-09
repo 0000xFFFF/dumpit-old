@@ -9,6 +9,7 @@ Easily transfer files from a phone to a PC over wifi.
 # Installation
 ```
 ./setu-env.sh
+./install.sh
 ```
 
 ## Requirements
@@ -18,8 +19,9 @@ Easily transfer files from a phone to a PC over wifi.
 
 # Running
 ```
-./run.sh
+dumpit uploads
 ```
+###### uploads - dir name
 
 # Usage
 Open the server's IP address in a web browser and begin uploading files.
