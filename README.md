@@ -8,7 +8,7 @@ Easily transfer files from a phone to a PC over wifi.
 
 # Installation
 ```
-./setu-env.sh
+./setup-env.sh
 ./install.sh
 ```
 
