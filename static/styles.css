@@ -11,7 +11,6 @@
     --main-color-high: #ff838e;
 }
 
-
 body {
     font-family: monospace;
     font-size: x-small;
@@ -37,6 +36,7 @@ input { color: var(--main-color-pink); }
     box-shadow: 2px 2px 20px 0px rgba(25,65,35,0.5);
     border: 1px solid #505050;
     padding: 10px;
+    transition: 1s;
 }
 
 .centercont:empty { display: none; }
@@ -73,7 +73,7 @@ input { color: var(--main-color-pink); }
     background: linear-gradient(90deg, var(--main-color-yellow) 0%, var(--main-color-green) 100%);;
     text-align: right;
     color: white;
-    transition: 1s;
+    transition: 0.05s;
     border-radius: 10px;
 }
 .progress-label {
@@ -87,11 +87,12 @@ p {
 
 #filesdisplay {
     width: 300px;
-    
+    transition: 1s;
 }
 
 .div_file {
     background-color: #151515;
+    transition: all 1s, background-color 0.3s;
     padding: 5px;
     border: 1px solid #303030;
     margin-bottom: 5px;
