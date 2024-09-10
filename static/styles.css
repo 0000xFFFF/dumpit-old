@@ -98,6 +98,14 @@ p {
     margin-bottom: 5px;
     border-radius: 10px;
 }
+.div_file_success {
+    background-color: rgba(0, 255, 0, 0.1);
+    border: 1px solid var(--main-color-green);
+}
+.div_file_fail {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid var(--main-color-pink);
+}
 .div_file_div1, .div_file_div2 {
     display: block;
 }

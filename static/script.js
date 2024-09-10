@@ -140,10 +140,10 @@ async function uploadFiles() {
 
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    fileItem.style.backgroundColor = "rgba(0, 255, 0, 0.1)";
+                    fileItem.classList.add("div_file_success");
                     resolve();
                 } else {
-                    fileItem.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
+                    fileItem.classList.add("div_file_fail");
                     reject();
                 }
                 progressBarCont.style.display = "none";
