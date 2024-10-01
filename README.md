@@ -4,7 +4,7 @@
 
 Easily transfer files from a phone to a PC over wifi.
 
-<img src="preview/preview.gif" width="800" height="700">
+![preview](preview/preview.gif)
 
 # Installation
 ```
