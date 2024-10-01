@@ -4,7 +4,7 @@
 
 Easily transfer files from a phone to a PC over wifi.
 
-<img src="preview/preview.gif" width="900" height="600">
+<img src="preview/preview.gif" width="800" height="700">
 
 # Installation
 ```
@@ -21,7 +21,7 @@ Easily transfer files from a phone to a PC over wifi.
 ```
 dumpit uploads
 ```
-###### uploads - dir name
+> uploads - dir name
 
 # Usage
 Open the server's IP address in a web browser and begin uploading files.
