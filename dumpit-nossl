@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Resolve the symlink and get the absolute path of the script
+SCRIPT_PATH=$(readlink -f "$0")
+
+# Get the directory where the script is located
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+source "$SCRIPT_DIR/p3env/bin/activate"
+
+if [ -z "$VIRTUAL_ENV" ]; then
+    echo "Not inside a virtual environment. Exiting..."
+    exit 1
+else
+    echo "Inside a virtual environment. Proceeding..."
+fi
+
+UPLOAD_DIR="$1"
+[ -z "$1" ] && UPLOAD_DIR="."
+
+mkdir -p "$UPLOAD_DIR"
+ORIGINAL_USER="$(whoami)"
+
+echo "Starting server..."
+sudo python "$SCRIPT_DIR/server.py" -p 80 -u "$ORIGINAL_USER" -d "$UPLOAD_DIR" -v -n
