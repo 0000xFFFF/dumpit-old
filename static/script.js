@@ -121,6 +121,9 @@ async function uploadFiles() {
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '/upload', true);
 
+            // set filename for server
+            xhr.setRequestHeader('X-File-Name', file.name);
+
             const progressBarCont = document.getElementById(`progressBar${index}_cont`);
             progressBarCont.style.display = "flex";
             
@@ -154,7 +157,7 @@ async function uploadFiles() {
                 reject();
             };
 
-            xhr.send(formData);
+            xhr.send(file); // send the raw file content as the request body
         });
     };
 

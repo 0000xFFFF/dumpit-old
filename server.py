@@ -5,6 +5,7 @@ import pwd
 import argparse
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sslify import SSLify
+from werkzeug.utils import secure_filename
 
 parser = argparse.ArgumentParser(description='HTTP(s) web file server for just uploading files')
 
@@ -50,42 +51,53 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def index():
     return send_from_directory('templates', 'index.html')
 
+
 @app.route('/upload', methods=['POST'])
 def upload_files():
-    if 'files' not in request.files:
-        return jsonify({'error': 'No files part'}), 400
+    if not request.content_length:
+        return jsonify({'error': 'No content length provided'}), 411
 
-    files = request.files.getlist('files')
-    if not files:
-        return jsonify({'error': 'No selected files'}), 400
+    if request.content_length > 0:
+        filenames = []
+        failed_files = []
 
-    filenames = []
-    failed_files = []
-
-    for file in files:
-        if file.filename == '':
-            failed_files.append('No selected file')
-            continue
+        CHUNK_SIZE = 8192  # Define the chunk size to write in small parts
 
         try:
-            filename = file.filename
+            # Save the file directly from the stream, without holding the file in memory
+            filename = request.headers.get('X-File-Name', 'uploaded_file')
+            filename = secure_filename(filename)  # Sanitize the filename
             filepath = os.path.join(UPLOAD_FOLDER, filename)
 
-            if args.verbose: print(f"saving: {filename}")
-            file.save(filepath)
-            if args.verbose: print(f"saved: {filename}")
+            if args.verbose:
+                print(f"saving: {filename}")
 
-            if args.verbose: print(f"chown[{args.user}] {filepath}")
+            # Write the file in chunks
+            with open(filepath, 'wb') as f:
+                while True:
+                    chunk = request.stream.read(CHUNK_SIZE)
+                    if not chunk:
+                        break
+                    f.write(chunk)
+
+            if args.verbose:
+                print(f"saved: {filename}")
+
+            # Change ownership of the file to the specified user
+            if args.verbose:
+                print(f"chown[{args.user}] {filepath}")
             os.chown(filepath, user_uid, user_gid)
 
             filenames.append(filename)
         except Exception as e:
             failed_files.append(str(e))
 
-    if failed_files:
-        return jsonify({'filenames': filenames, 'errors': failed_files}), 500
+        if failed_files:
+            return jsonify({'filenames': filenames, 'errors': failed_files}), 500
 
-    return jsonify({'filenames': filenames}), 200
+        return jsonify({'filenames': filenames}), 200
+    else:
+        return jsonify({'error': 'File too large or no file uploaded'}), 413
 
 if __name__ == '__main__':
     app.run(host=args.ip, port=args.port, ssl_context='adhoc')
