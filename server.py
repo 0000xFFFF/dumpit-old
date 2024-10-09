@@ -14,8 +14,11 @@ parser.add_argument('-i', '--ip', metavar='string', type=str, default="0.0.0.0",
 parser.add_argument('-p', '--port', metavar='string', type=str, default="443", help="port for the server (default: '443' - https)")
 parser.add_argument('-v', '--verbose', action="store_true", help="verbose output")
 parser.add_argument('-d', '--directory', type=str, help="directory to save files to")
-
+parser.add_argument('-n', '--nossl', action="store_true", help="don't use https")
 args = parser.parse_args()
+
+if not args.nossl:
+    from flask_sslify import SSLify
 
 if args.verbose:
     print(args)
@@ -38,7 +41,8 @@ app = Flask(
     static_url_path='',
     static_folder="static/"
 )
-sslify = SSLify(app)
+if not args.nossl:
+    sslify = SSLify(app)
 
 UPLOAD_FOLDER = '.'
 if args.directory is not None:
@@ -100,5 +104,8 @@ def upload_files():
         return jsonify({'error': 'File too large or no file uploaded'}), 413
 
 if __name__ == '__main__':
-    app.run(host=args.ip, port=args.port, ssl_context='adhoc')
+    if not args.nossl:
+        app.run(host=args.ip, port=args.port, ssl_context='adhoc')
+    else:
+        app.run(host=args.ip, port=args.port)
 
