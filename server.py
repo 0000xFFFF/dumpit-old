@@ -4,7 +4,6 @@ import os
 import pwd
 import argparse
 from flask import Flask, request, jsonify, send_from_directory
-from flask_sslify import SSLify
 from werkzeug.utils import secure_filename
 
 parser = argparse.ArgumentParser(description='HTTP(s) web file server for just uploading files')
